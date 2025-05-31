@@ -34,6 +34,14 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         if (clonedBlock != null)
         {
+            if (parentAfterDrag.CompareTag("BlokPanel"))
+            {
+                Destroy(clonedBlock);
+                image.color = new Color(1, 1, 1, 1f);
+                image.raycastTarget = true;
+                clonedBlock = null;
+                return;
+            }
             clonedBlock.transform.SetParent(parentAfterDrag);
             clonedBlock.GetComponent<DraggableBlock>().image.raycastTarget = true;
             image.raycastTarget = true;

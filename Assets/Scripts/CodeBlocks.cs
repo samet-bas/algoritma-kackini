@@ -2,7 +2,10 @@ using UnityEngine;
 
 public enum CodeType
 {
-    Go
+    Go,
+    Turn_right,
+    Turn_left,
+    Place
 }
 public class CodeBlocks : MonoBehaviour
 {
