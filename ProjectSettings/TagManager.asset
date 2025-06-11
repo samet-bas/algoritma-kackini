@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DropPanel
   - BlokPanel
+  - teyip
   layers:
   - Default
   - TransparentFX

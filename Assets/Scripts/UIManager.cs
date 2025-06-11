@@ -51,8 +51,8 @@ public class UIManager : MonoBehaviour
     private IEnumerator ExitWithDelay(float delay = 1f)
     {
         yield return new WaitForSeconds(delay);
-        //Application.Quit();
-        Debug.Log("Exit");
+        Application.Quit();
+        
     }
 
     public void ChangeScene(string scene)

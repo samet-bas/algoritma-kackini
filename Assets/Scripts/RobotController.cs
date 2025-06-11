@@ -12,15 +12,20 @@ public class RobotController : MonoBehaviour
     private CodeBlocks[] codeBlocks;
 
     public List<Vector3> targetPositions;
-    private int completedTargets = 0;
-    
+    private List<Vector3> completedTargetPositions = new List<Vector3>();
+
+
     private Animator animator;
 
     public GameManager gameManager;
+
+    [SerializeField] private float completionTolerance = 0.1f; // Pozisyon eşleşmesi hassasiyeti
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
+
     public void ExecuteCodeBlocks()
     {
         gameManager.HidePanelsOnRun();
@@ -34,6 +39,7 @@ public class RobotController : MonoBehaviour
         transform.position = new Vector3(-1f, 0.5f, -6f);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
+
     private IEnumerator ExecuteSequence()
     {
         foreach (CodeBlocks cb in codeBlocks)
@@ -41,32 +47,48 @@ public class RobotController : MonoBehaviour
             switch (cb.type)
             {
                 case CodeType.Go:
-                    animator.SetBool("walking",true);
+                    animator.SetBool("walking", true);
                     yield return transform.DOMove(transform.position + transform.forward * moveDistance, moveSpeed).WaitForCompletion();
-                    animator.SetBool("walking",false);
+                    animator.SetBool("walking", false);
                     break;
+
                 case CodeType.Turn_right:
                     yield return transform.DORotate(transform.rotation.eulerAngles + new Vector3(0, turnDegree, 0), moveSpeed).WaitForCompletion();
                     break;
+
                 case CodeType.Turn_left:
                     yield return transform.DORotate(transform.rotation.eulerAngles + new Vector3(0, -turnDegree, 0), moveSpeed).WaitForCompletion();
                     break;
+
                 case CodeType.Place:
-                    foreach (Vector3 tp in targetPositions)
+                    for (int i = 0; i < targetPositions.Count; i++)
                     {
-                        if(transform.position == tp) completedTargets++;
-                        targetPositions.Remove(tp);
-                        if (targetPositions.Count <= 0)
+                        Vector3 target = targetPositions[i];
+
+                       
+                        if (completedTargetPositions.Contains(target))
+                            continue;
+
+                        if (Vector3.Distance(transform.position, target) <= completionTolerance)
                         {
-                            Debug.Log("Bölüm Bitti");
-                            StopRunning();
+                            completedTargetPositions.Add(target);
+                            
                         }
                     }
+
+                    
+                    if (completedTargetPositions.Count >= targetPositions.Count)
+                    {
+                        
+                        StopRunning();
+                        gameManager.EndLevel();
+                        yield break;
+                    }
                     break;
+
             }
-            
         }
+
         StopRunning();
     }
-
 }
