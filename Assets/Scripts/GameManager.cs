@@ -10,13 +10,13 @@ public class GameManager : MonoBehaviour
     public RectTransform victoryPanel;
     public void HidePanelsOnRun()
     {
-        BlokPanel.DOAnchorPosX(-700f, 1f);
-        KodPanel.DOAnchorPosX(700f, 1f);
+        BlokPanel.DOAnchorPosX(-180f, 1f);
+        KodPanel.DOAnchorPosX(-180f, 1.5f);
     }
     public void ShowPanelsOnStop()
     {
-        BlokPanel.DOAnchorPosX(+210f, 1f);
-        KodPanel.DOAnchorPosX(-210f, 1f);
+        BlokPanel.DOAnchorPosX(+220f, 1f);
+        KodPanel.DOAnchorPosX(+220f, 1.5f);
     }
 
     public void ClearProgram()

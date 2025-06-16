@@ -1,103 +1,93 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("Target Settings")]
     public Transform target;
+    
+    [Header("Rotation Settings")]
+    public float rotationSpeed = 3f;
+    public float minVerticalAngle = -30f;
+    public float maxVerticalAngle = 70f;
+    public Rect touchArea = new Rect(0.3f, 0.3f, 0.4f, 0.4f); // Orta %40 alan
+    
+    [Header("Zoom Settings")]
+    public float minDistance = 2f;
+    public float maxDistance = 10f;
+    public float zoomStep = 1f; // Her buton tıklamasında yakınlaşma/uzaklaşma miktarı
 
-    public float moveStep = 1f;
-    public float rotateStep = 15f;
-    public float zoomStep = 2f;
-    public float verticalRotateStep = 5f;
-
-    public float minZoom = 5f;
-    public float maxZoom = 50f;
-
-    public float minVerticalAngle = 20f;
-    public float maxVerticalAngle = 80f;
-
-    public Vector2 moveLimitMin = new Vector2(0, 0);
-    public Vector2 moveLimitMax = new Vector2(30, 30);
-
-    private float currentZoom;
-    private float currentAngle;
-    private float verticalAngle;
-
-    private Vector3 startPosition;
-
-    void Start()
+    private float _currentX = 225f;
+    private float _currentY = 30f;
+    public float distanceFromTarget = 20f;
+    
+    void Update()
     {
-        startPosition = target.position;
-        moveLimitMin = new Vector2(startPosition.x - 15f, startPosition.z - 15f);
-        moveLimitMax = new Vector2(startPosition.x + 15f, startPosition.z + 15f);
+        if (target == null || IsPointerOverUI()) return;
 
-        Vector3 offset = transform.position - target.position;
-        currentZoom = offset.magnitude;
-
-        Quaternion rot = Quaternion.LookRotation(-offset.normalized);
-        currentAngle = rot.eulerAngles.y;
-        verticalAngle = rot.eulerAngles.x;
-    }
-
-    void LateUpdate()
-    {
+        HandleRotationInput();
+        // UpdateCameraPosition artık her frame'de çağrılıyor
         UpdateCameraPosition();
     }
 
-    // --- PUBLIC UI FUNCTIONS (tek seferlik adımlarla) ---
-
-    public void MoveForward() => Move(Vector3.forward * moveStep);
-    public void MoveBackward() => Move(Vector3.back * moveStep);
-    public void MoveLeft() => Move(Vector3.left * moveStep);
-    public void MoveRight() => Move(Vector3.right * moveStep);
-
-    public void RotateLeft() => currentAngle -= rotateStep;
-    public void RotateRight() => currentAngle += rotateStep;
-
-    public void LookUp()
+    bool IsPointerOverUI()
     {
-        verticalAngle += verticalRotateStep;
-        verticalAngle = Mathf.Clamp(verticalAngle, minVerticalAngle, maxVerticalAngle);
+        return EventSystem.current.IsPointerOverGameObject() || 
+               (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId));
     }
 
-    public void LookDown()
+    bool IsInTouchArea(Vector2 position)
     {
-        verticalAngle -= verticalRotateStep;
-        verticalAngle = Mathf.Clamp(verticalAngle, minVerticalAngle, maxVerticalAngle);
+        Vector2 normalizedPos = new Vector2(position.x / Screen.width, position.y / Screen.height);
+        return touchArea.Contains(normalizedPos);
+    }
+
+    void HandleRotationInput()
+    {
+        // Dokunmatik kontrol
+        if (Input.touchCount == 1)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (IsInTouchArea(touch.position) && touch.phase == TouchPhase.Moved)
+            {
+                _currentX += touch.deltaPosition.x * rotationSpeed * 0.02f;
+                _currentY -= touch.deltaPosition.y * rotationSpeed * 0.02f;
+                _currentY = Mathf.Clamp(_currentY, minVerticalAngle, maxVerticalAngle);
+            }
+        }
+        // Fare kontrol
+        else if (Input.GetMouseButton(0) && IsInTouchArea(Input.mousePosition))
+        {
+            _currentX += Input.GetAxis("Mouse X") * rotationSpeed;
+            _currentY -= Input.GetAxis("Mouse Y") * rotationSpeed;
+            _currentY = Mathf.Clamp(_currentY, minVerticalAngle, maxVerticalAngle);
+        }
     }
 
     public void ZoomIn()
     {
-        currentZoom -= zoomStep;
-        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+        distanceFromTarget -= zoomStep;
+        distanceFromTarget = Mathf.Clamp(distanceFromTarget, minDistance, maxDistance);
+        // Zoom yapınca hemen kamera pozisyonunu güncelle
+        UpdateCameraPosition();
     }
 
     public void ZoomOut()
     {
-        currentZoom += zoomStep;
-        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+        distanceFromTarget += zoomStep;
+        distanceFromTarget = Mathf.Clamp(distanceFromTarget, minDistance, maxDistance);
+        // Zoom yapınca hemen kamera pozisyonunu güncelle
+        UpdateCameraPosition();
     }
 
-    // --- PRIVATE ---
-
-    private void Move(Vector3 localDirection)
+    void UpdateCameraPosition()
     {
-        Vector3 moveDir = localDirection.x * transform.right + localDirection.z * transform.forward;
-        moveDir.y = 0;
-        moveDir.Normalize();
-
-        Vector3 newPosition = target.position + moveDir;
-        newPosition.x = Mathf.Clamp(newPosition.x, moveLimitMin.x, moveLimitMax.x);
-        newPosition.z = Mathf.Clamp(newPosition.z, moveLimitMin.y, moveLimitMax.y);
-        newPosition.y = target.position.y;
-
-        target.position = newPosition;
-    }
-
-    private void UpdateCameraPosition()
-    {
-        Quaternion rotation = Quaternion.Euler(verticalAngle, currentAngle, 0);
-        Vector3 direction = rotation * Vector3.back;
-        transform.position = target.position + direction * currentZoom;
-        transform.LookAt(target);
+        if (target == null) return;
+        
+        Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0);
+        Vector3 position = rotation * new Vector3(0f, 0f, -distanceFromTarget) + target.position;
+        
+        transform.rotation = rotation;
+        transform.position = position;
     }
 }
