@@ -5,7 +5,8 @@ public enum CodeType
     Go,
     Turn_right,
     Turn_left,
-    Place
+    Place,
+    Loop
 }
 public class CodeBlocks : MonoBehaviour
 {

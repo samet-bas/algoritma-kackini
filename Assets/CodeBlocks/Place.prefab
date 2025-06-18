@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8303137297700527043}
   - component: {fileID: 6843042870174357137}
   m_Layer: 5
-  m_Name: End
+  m_Name: Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 300, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7150748906967594859
 CanvasRenderer:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bitir
+  m_text: Ver
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f59cbf08391d8c7488a9a5ca3bee9910, type: 2}
   m_sharedMaterial: {fileID: -3446698910529545228, guid: f59cbf08391d8c7488a9a5ca3bee9910, type: 2}

@@ -7,6 +7,7 @@ TagManager:
   - DropPanel
   - BlokPanel
   - teyip
+  - loopInt
   layers:
   - Default
   - TransparentFX
