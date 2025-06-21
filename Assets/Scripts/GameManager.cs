@@ -1,22 +1,29 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public RectTransform zoom,dialog;
+    public Transform floor, decor, robot;
+    
     public RectTransform BlokPanel;
     public RectTransform KodPanel;
     public GameObject program;
     public RectTransform victoryPanel;
+
+    
+
     public void HidePanelsOnRun()
     {
         BlokPanel.DOAnchorPosX(-180f, 1f);
-        KodPanel.DOAnchorPosX(-180f, 1.5f);
+        KodPanel.DOAnchorPosX(180f, 1f);
     }
     public void ShowPanelsOnStop()
     {
-        BlokPanel.DOAnchorPosX(+220f, 1f);
-        KodPanel.DOAnchorPosX(+220f, 1.5f);
+        BlokPanel.DOAnchorPosX(+250f, 1f);
+        KodPanel.DOAnchorPosX(-250f, 1f);
     }
 
     public void ClearProgram()

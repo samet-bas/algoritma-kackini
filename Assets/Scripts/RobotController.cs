@@ -9,20 +9,20 @@ public class RobotController : MonoBehaviour
     public float moveDistance = 2.5f;
     public float moveSpeed = 1.5f;
     private float turnDegree = 90f;
-
+    public Vector3 startPos;
     public GameObject Content;
     private CodeBlocks[] codeBlocks;
 
     public List<GameObject> targetObjects;
     private List<GameObject> completedTargetObjects = new List<GameObject>();
 
-    [Header("Engeller")]
-    public List<Vector3> blockedPositions = new List<Vector3>();
-
     private Animator animator;
     public GameManager gameManager;
 
-    [SerializeField] private float completionTolerance = 0.1f;
+    [SerializeField] private float rayCheckDistance = 2.5f;
+    [SerializeField] private LayerMask obstacleLayer;
+
+    private bool isRunning = false;
 
     void Start()
     {
@@ -31,6 +31,7 @@ public class RobotController : MonoBehaviour
 
     public void ExecuteCodeBlocks()
     {
+        isRunning = true;
         gameManager.HidePanelsOnRun();
         codeBlocks = Content.GetComponentsInChildren<CodeBlocks>();
         StartCoroutine(ExecuteSequence());
@@ -38,8 +39,9 @@ public class RobotController : MonoBehaviour
 
     public void StopRunning()
     {
+        isRunning = false;
         gameManager.ShowPanelsOnStop();
-        transform.position = new Vector3(0f, 0.5f, 0f);
+        transform.position = startPos;
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
@@ -47,6 +49,7 @@ public class RobotController : MonoBehaviour
     {
         foreach (CodeBlocks cb in codeBlocks)
         {
+            if (!isRunning) yield break;
             yield return ExecuteSingleBlock(cb);
         }
 
@@ -55,24 +58,19 @@ public class RobotController : MonoBehaviour
 
     private IEnumerator ExecuteSingleBlock(CodeBlocks cb)
     {
+        if (!isRunning) yield break;
+
         switch (cb.type)
         {
             case CodeType.Go:
-                Vector3 nextPos = transform.position + transform.forward * moveDistance;
-                Vector3 gridPos = new Vector3(Mathf.Round(nextPos.x), 0f, Mathf.Round(nextPos.z));
-
-                bool isBlocked = blockedPositions.Exists(p =>
-                    Mathf.Round(p.x) == Mathf.Round(gridPos.x) &&
-                    Mathf.Round(p.z) == Mathf.Round(gridPos.z)
-                );
-
-                if (isBlocked)
+                if (IsPathBlocked())
                 {
-                    Debug.Log("Hedef pozisyon engelli! Hareket iptal edildi.");
+                    Debug.Log("Ray engeli tespit etti. Hareket iptal edildi.");
                     StopRunning();
                     yield break;
                 }
 
+                Vector3 nextPos = transform.position + transform.forward * moveDistance;
                 animator.SetBool("walking", true);
                 yield return transform.DOMove(nextPos, moveSpeed).WaitForCompletion();
                 animator.SetBool("walking", false);
@@ -87,27 +85,35 @@ public class RobotController : MonoBehaviour
                 break;
 
             case CodeType.Place:
-                foreach (GameObject target in targetObjects)
+                Ray ray = new Ray(transform.position + Vector3.up * 0.5f, Vector3.down);
+                if (Physics.Raycast(ray, out RaycastHit hit, 1f))
                 {
-                    if (completedTargetObjects.Contains(target))
-                        continue;
-
-                    Vector3 robotFlatPos = new Vector3(transform.position.x, 0f, transform.position.z);
-                    Vector3 targetFlatPos = new Vector3(target.transform.position.x, 0f, target.transform.position.z);
-
-                    if ((robotFlatPos - targetFlatPos).sqrMagnitude <= completionTolerance * completionTolerance)
+                    if (hit.collider.CompareTag("target"))
                     {
-                        completedTargetObjects.Add(target);
-                        Debug.Log("HEDEF TAMAMLANDI");
+                        GameObject hitTarget = hit.collider.gameObject;
+
+                        if (!completedTargetObjects.Contains(hitTarget))
+                        {
+                            completedTargetObjects.Add(hitTarget);
+                            Debug.Log("HEDEF TAMAMLANDI");
+                        }
+
+                        if (completedTargetObjects.Count >= targetObjects.Count)
+                        {
+                            Debug.Log("TÜM HEDEFLER TAMAMLANDI!");
+                            StopRunning();
+                            gameManager.EndLevel();
+                            yield break;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Altımda target tag'lı bir obje yok.");
                     }
                 }
-
-                if (completedTargetObjects.Count >= targetObjects.Count)
+                else
                 {
-                    Debug.Log("TÜM HEDEFLER TAMAMLANDI!");
-                    StopRunning();
-                    gameManager.EndLevel();
-                    yield break;
+                    Debug.Log("Raycast aşağıda hiçbir şeye çarpmadı.");
                 }
                 break;
 
@@ -116,7 +122,7 @@ public class RobotController : MonoBehaviour
                 TMP_InputField inputField = cb.GetComponentInChildren<TMP_InputField>();
                 if (inputField != null && int.TryParse(inputField.text, out loopCount) && loopCount > 0)
                 {
-                    Transform loopContent = cb.transform.Find("Panel/Scroll View/Viewport/Content");
+                    Transform loopContent = cb.transform.Find("Scroll View/Viewport/Content");
                     if (loopContent != null)
                     {
                         CodeBlocks[] innerBlocks = loopContent.GetComponentsInChildren<CodeBlocks>();
@@ -124,6 +130,7 @@ public class RobotController : MonoBehaviour
                         {
                             foreach (CodeBlocks innerCb in innerBlocks)
                             {
+                                if (!isRunning) yield break;
                                 yield return ExecuteSingleBlock(innerCb);
                             }
                         }
@@ -131,5 +138,15 @@ public class RobotController : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private bool IsPathBlocked()
+    {
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+        Vector3 direction = transform.forward;
+
+        Debug.DrawRay(origin, direction * rayCheckDistance, Color.red, 1f);
+
+        return Physics.Raycast(origin, direction, out RaycastHit hit, rayCheckDistance, obstacleLayer);
     }
 }

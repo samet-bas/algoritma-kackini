@@ -20,14 +20,19 @@ public class CameraController : MonoBehaviour
     private float _currentX = 225f;
     private float _currentY = 30f;
     public float distanceFromTarget = 20f;
+
+    public bool canRotate = true;
     
     void Update()
     {
         if (target == null || IsPointerOverUI()) return;
-
-        HandleRotationInput();
-        // UpdateCameraPosition artık her frame'de çağrılıyor
-        UpdateCameraPosition();
+        if (canRotate)
+        {
+            HandleRotationInput();
+                    // UpdateCameraPosition artık her frame'de çağrılıyor
+                    UpdateCameraPosition();
+        }
+        
     }
 
     bool IsPointerOverUI()
