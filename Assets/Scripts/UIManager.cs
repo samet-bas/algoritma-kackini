@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
    [SerializeField] private RectTransform menu_bg;
    [SerializeField] private RectTransform menu_title;  
-   [SerializeField] private RectTransform menu_start,menu_options,menu_credits;
+   [SerializeField] private RectTransform menu_start,menu_tutorial,menu_options,menu_credits;
    [SerializeField] private RectTransform menu_exit;
    [SerializeField] private float revealDuration = 1f;
    [SerializeField] private Transform ui;
@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
         menu_bg.DOScale(Vector3.zero, revealDuration).From().SetDelay(0.2f);
         menu_title.DOAnchorPosY(700f, revealDuration).From().SetDelay(0.5f);
         menu_start.DOAnchorPosY(-700f, revealDuration).From().SetDelay(0.5f);
+        menu_tutorial.DOAnchorPosY(-700f, revealDuration).From().SetDelay(0.5f);
         menu_options.DOAnchorPosY(-700f, revealDuration).From().SetDelay(0.5f);
         menu_credits.DOAnchorPosY(-700f, revealDuration).From().SetDelay(0.5f);
         menu_exit.DOAnchorPosY(700f, revealDuration).From().SetDelay(0.5f);
