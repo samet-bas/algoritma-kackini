@@ -2178,6 +2178,8 @@ MonoBehaviour:
   KodPanel: {fileID: 484455350}
   program: {fileID: 246562758}
   victoryPanel: {fileID: 778258508}
+  PausePanel: {fileID: 2052160319}
+  volumeSlider: {fileID: 2052160318}
 --- !u!4 &466461087
 Transform:
   m_ObjectHideFlags: 0
@@ -8491,6 +8493,7 @@ RectTransform:
   - {fileID: 866747454}
   - {fileID: 1065610456}
   - {fileID: 1776927362}
+  - {fileID: 2052160317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9459,10 +9462,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 7
-  json: "{\"Options\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":218.400024,\"yPos\":123.8},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Neden?\",\"parentUIDs\":[0],\"SpeechUID\":-1},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":216.000031,\"yPos\":297.4},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Deneyece\u011Fim.\",\"parentUIDs\":[2],\"SpeechUID\":-1}],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":215.200012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Bu
-    sefer cidden zor bir g\xF6rev seni bekliyor.\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1},{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":216.000031,\"yPos\":191.999969},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"4
-    m\xFC\u015Fteri garip bir \u015Fekilde oturuyor ama tekrarla komutu ile kolayca
-    \xE7\xF6z\xFClebilir.\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1}]}"
+  json: "{\"Options\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":218.400024,\"yPos\":123.8},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Te\u015Fekk\xFCr
+    ederim.\",\"parentUIDs\":[0],\"SpeechUID\":-1},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":216.000031,\"yPos\":297.4},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"G\xF6sterelim
+    o halde!\",\"parentUIDs\":[2],\"SpeechUID\":-1}],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":215.200012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Robot
+    programc\u0131l\u0131\u011F\u0131n\u0131n y\u0131ld\u0131z\u0131 geliyorrr!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1},{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":216.000031,\"yPos\":191.999969},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"M\xFC\u015Fteriler
+    senin yeteneklerini merak etmeye ba\u015Flad\u0131.\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1}]}"
   saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
@@ -10198,8 +10202,13 @@ MonoBehaviour:
   Content: {fileID: 246562758}
   targetObjects:
   - {fileID: 1699313863}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 444138293}
+  - {fileID: 2126807218}
+  - {fileID: 1434269084}
+  - {fileID: 203098182}
+  - {fileID: 941106775}
+  - {fileID: 82068067}
+  - {fileID: 943060341}
   gameManager: {fileID: 466461086}
   rayCheckDistance: 1
   obstacleLayer:
@@ -10933,6 +10942,124 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1001 &2052160316
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1591777013}
+    m_Modifications:
+    - target: {fileID: 1587473627414592036, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_Name
+      value: PauseSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 827.46576
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 113.73288
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+--- !u!224 &2052160317 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+  m_PrefabInstance: {fileID: 2052160316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2052160318 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2561533294199598223, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+  m_PrefabInstance: {fileID: 2052160316}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2052160319 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7013777391750657131, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+  m_PrefabInstance: {fileID: 2052160316}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2060783520
 GameObject:
   m_ObjectHideFlags: 0

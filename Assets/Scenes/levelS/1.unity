@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6116449485086562217, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4294638331
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 6116449485086562217, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
       propertyPath: m_TextStyleHashCode
@@ -749,6 +749,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 715fa4da2a7d5f14ab7600d278190cfd, type: 3}
+--- !u!1 &228430786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7013777391750657131, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+  m_PrefabInstance: {fileID: 4404596133830240503}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &246562758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1660,8 @@ MonoBehaviour:
   KodPanel: {fileID: 484455350}
   program: {fileID: 246562758}
   victoryPanel: {fileID: 778258508}
+  PausePanel: {fileID: 228430786}
+  volumeSlider: {fileID: 1781912495}
 --- !u!4 &466461087
 Transform:
   m_ObjectHideFlags: 0
@@ -4880,6 +4887,7 @@ RectTransform:
   - {fileID: 866747454}
   - {fileID: 1065610456}
   - {fileID: 1776927362}
+  - {fileID: 2028326393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5390,11 +5398,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 6
-  json: "{\"Options\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":216,\"yPos\":-44.2000122},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Neden?\",\"parentUIDs\":[0],\"SpeechUID\":-1},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":213.6,\"yPos\":129.399979},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Bir
-    bakay\u0131m.\",\"parentUIDs\":[2],\"SpeechUID\":-1},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":210.400024,\"yPos\":318.2},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Bende
-    bu i\u015F!\",\"parentUIDs\":[4],\"SpeechUID\":-1}],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":212.799988,\"yPos\":-146.000015},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Hey!
-    Sonunda geldin! Sana ger\xE7ekten \xE7ok ihtiyac\u0131m\u0131z var!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1},{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":213.6,\"yPos\":23.9999542},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Kafemize
-    yeni bir robot ald\u0131k. Ama \xC7ALI\u015ETIRAMADIK! Yard\u0131m eder misin?\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1},{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":217.6,\"yPos\":195.200012},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"L\xFCtfen
+  json: "{\"Options\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":2}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":218.400024,\"yPos\":123.8},\"ID\":1,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Neden?\",\"parentUIDs\":[0],\"SpeechUID\":-1},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":4}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":216.000031,\"yPos\":297.4},\"ID\":3,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Bir
+    bakay\u0131m.\",\"parentUIDs\":[2],\"SpeechUID\":-1},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":212.800049,\"yPos\":486.200165},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Bende
+    bu i\u015F!\",\"parentUIDs\":[4],\"SpeechUID\":-1}],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":1}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":215.200012,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Hey!
+    Sonunda geldin! Sana ger\xE7ekten \xE7ok ihtiyac\u0131m\u0131z var!\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1},{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":3}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":216.000031,\"yPos\":191.999969},\"ID\":2,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Kafemize
+    yeni bir robot ald\u0131k. Ama \xC7ALI\u015ETIRAMADIK! Yard\u0131m eder misin?\",\"parentUIDs\":[1],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1},{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":220.000031,\"yPos\":363.200134},\"ID\":4,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"L\xFCtfen
     bir el at da m\xFC\u015Fterilere kahvesini g\xF6t\xFCrs\xFCn!\",\"parentUIDs\":[3],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Arhan\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":1}]}"
   saveVersion: 110
   DefaultName: 
@@ -5433,6 +5441,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3900108755196472087, guid: d9fa78e8c3c4f2b4b8f7f77ca8426cca, type: 3}
   m_PrefabInstance: {fileID: 179622880}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1781912495 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2561533294199598223, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+  m_PrefabInstance: {fileID: 4404596133830240503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1815990244
 GameObject:
   m_ObjectHideFlags: 0
@@ -5975,7 +5994,7 @@ MonoBehaviour:
   rayCheckDistance: 1
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!4 &1898439703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2634395073816603646, guid: 5cae6d7d0922fd44e8c052d92fe9a0ce, type: 3}
@@ -6452,6 +6471,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003777944}
   m_CullTransparentMesh: 1
+--- !u!224 &2028326393 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+  m_PrefabInstance: {fileID: 4404596133830240503}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2033069595
 GameObject:
   m_ObjectHideFlags: 0
@@ -6688,6 +6712,111 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1001 &4404596133830240503
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1591777013}
+    m_Modifications:
+    - target: {fileID: 1587473627414592036, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_Name
+      value: PauseSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 827.46576
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 113.73288
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431753414836038264, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121543642156258077, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 466461086}
+    - target: {fileID: 7498680750760326515, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 466461086}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3d5046de5ed275b4fa2bbe3ca5c1a22d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

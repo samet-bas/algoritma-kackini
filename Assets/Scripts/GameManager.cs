@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,8 +13,34 @@ public class GameManager : MonoBehaviour
     public RectTransform KodPanel;
     public GameObject program;
     public RectTransform victoryPanel;
+    public GameObject PausePanel;
+    public Slider volumeSlider;     // UI Slider
+    private AudioSource audioSource;
+    private const string VolumeKey = "volume";
 
-    
+    void Awake()
+    {
+        // Eğer bu script sahneler arasında kalıcı olacaksa:
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        audioSource = GameObject.FindWithTag("teyip").GetComponent<AudioSource>();
+        float savedVolume = PlayerPrefs.GetFloat(VolumeKey, 0.75f); // Varsayılan %75
+        audioSource.volume = savedVolume;
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = savedVolume;
+            volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+        }
+    }
+
+    public void OnVolumeChanged(float value)
+    {
+        audioSource.volume = value;
+        PlayerPrefs.SetFloat(VolumeKey, value);
+    }
 
     public void HidePanelsOnRun()
     {
@@ -56,6 +83,19 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Destroy(GameObject.FindGameObjectWithTag("teyip"));
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        PausePanel.SetActive(true);
+        PausePanel.GetComponent<RectTransform>().DOScale(1f, 1f).From().SetEase(Ease.InOutBounce);
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        PausePanel.SetActive(false);
     }
 
 }
