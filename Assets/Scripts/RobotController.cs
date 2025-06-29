@@ -137,6 +137,19 @@ public class RobotController : MonoBehaviour
                     }
                 }
                 break;
+            case CodeType.Function:
+                Transform functionContent = cb.transform.Find("Scroll View/Viewport/Content");
+                if (functionContent != null)
+                {
+                    CodeBlocks[] functionBlocks = functionContent.GetComponentsInChildren<CodeBlocks>();
+                    foreach (CodeBlocks innerCb in functionBlocks)
+                    {
+                        if (!isRunning) yield break;
+                        yield return ExecuteSingleBlock(innerCb);
+                    }
+                }
+                break;
+
         }
     }
 

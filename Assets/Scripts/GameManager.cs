@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public RectTransform zoom,dialog;
     public Transform floor, decor, robot;
-    
+    public GameObject functionPanel;
     public RectTransform BlokPanel;
     public RectTransform KodPanel;
     public GameObject program;
@@ -98,4 +98,8 @@ public class GameManager : MonoBehaviour
         PausePanel.SetActive(false);
     }
 
+    public void toggleOffOnFunctionPanel()
+    {
+        functionPanel.SetActive(!functionPanel.activeSelf);
+    }
 }
