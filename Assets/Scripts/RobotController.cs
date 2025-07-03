@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 
 public class RobotController : MonoBehaviour
 {
@@ -23,7 +25,7 @@ public class RobotController : MonoBehaviour
     [SerializeField] private LayerMask obstacleLayer;
 
     private bool isRunning = false;
-
+    private bool isFlying = false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -33,9 +35,20 @@ public class RobotController : MonoBehaviour
     {
         isRunning = true;
         gameManager.HidePanelsOnRun();
-        codeBlocks = Content.GetComponentsInChildren<CodeBlocks>();
+
+        List<CodeBlocks> topLevelBlocks = new List<CodeBlocks>();
+        foreach (Transform child in Content.transform)
+        {
+            CodeBlocks cb = child.GetComponent<CodeBlocks>();
+            if (cb != null)
+                topLevelBlocks.Add(cb);
+        }
+
+        codeBlocks = topLevelBlocks.ToArray();
         StartCoroutine(ExecuteSequence());
     }
+
+
 
     public void StopRunning()
     {
@@ -63,7 +76,7 @@ public class RobotController : MonoBehaviour
         switch (cb.type)
         {
             case CodeType.Go:
-                if (IsPathBlocked())
+                if (IsPathBlocked(1f))
                 {
                     Debug.Log("Ray engeli tespit etti. Hareket iptal edildi.");
                     StopRunning();
@@ -71,9 +84,11 @@ public class RobotController : MonoBehaviour
                 }
 
                 Vector3 nextPos = transform.position + transform.forward * moveDistance;
-                animator.SetBool("walking", true);
+                if (!isFlying) animator.SetBool("walking", true);
+                else transform.DORotate(new Vector3(20f, 0f, 0f), moveSpeed);
                 yield return transform.DOMove(nextPos, moveSpeed).WaitForCompletion();
                 animator.SetBool("walking", false);
+                transform.DORotate(new Vector3(0f, 0f, 0f), moveSpeed);
                 break;
 
             case CodeType.Turn_right:
@@ -126,7 +141,7 @@ public class RobotController : MonoBehaviour
                     if (loopContent != null)
                     {
                         CodeBlocks[] innerBlocks = loopContent.GetComponentsInChildren<CodeBlocks>();
-                        for (int i = 1; i < loopCount; i++)
+                        for (int i = 0; i < loopCount; i++)
                         {
                             foreach (CodeBlocks innerCb in innerBlocks)
                             {
@@ -149,16 +164,61 @@ public class RobotController : MonoBehaviour
                     }
                 }
                 break;
+            case CodeType.Fly:
+                isFlying = true;
+                yield return transform.DOMoveY(2f, moveSpeed * 3f).WaitForCompletion();  // Yukarı çık
+                break;
+            case CodeType.Land:
+                isFlying = false;
+                yield return transform.DOMoveY(0.5f, moveSpeed * 3f).WaitForCompletion(); 
+                break;
+            case CodeType.If:
+                Transform ifCondition = cb.transform.Find("Panel/Content");
+                Transform ifContent = cb.transform.Find("Scroll View/Viewport/Content");
+
+                CodeBlocks conditionBlock = ifCondition.GetComponentInChildren<CodeBlocks>();
+                if (conditionBlock != null && conditionBlock.type == CodeType.pathCheck)
+                {
+                    Debug.Log("If içinde pathCheck blok var");
+
+                    if (IsPathBlocked(1f))
+                    {
+                        Debug.Log("Engel var, if bloğunun içi çalıştırılıyor.");
+                        foreach (Transform child in ifContent)
+                        {
+                            CodeBlocks innerCb = child.GetComponent<CodeBlocks>();
+                            if (innerCb != null)
+                            {
+                                Debug.Log("Çalıştırılan iç blok: " + innerCb.gameObject.name);
+                                if (!isRunning) yield break;
+                                yield return ExecuteSingleBlock(innerCb);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Engel yok, if bloğu atlanıyor.");
+                    }
+                }
+                else
+                {
+                    Debug.Log("If koşulu yok veya pathCheck değil.");
+                }
+                break;
+
+
 
         }
     }
 
-    private bool IsPathBlocked()
+    
+
+    private bool IsPathBlocked(float duration)
     {
         Vector3 origin = transform.position + Vector3.up * 0.5f;
         Vector3 direction = transform.forward;
 
-        Debug.DrawRay(origin, direction * rayCheckDistance, Color.red, 1f);
+        Debug.DrawRay(origin, direction * rayCheckDistance, Color.red, duration);
 
         return Physics.Raycast(origin, direction, out RaycastHit hit, rayCheckDistance, obstacleLayer);
     }

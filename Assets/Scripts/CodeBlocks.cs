@@ -7,7 +7,11 @@ public enum CodeType
     Turn_left,
     Place,
     Loop,
-    Function
+    Function,
+    If,
+    pathCheck,
+    Fly,
+    Land
 }
 public class CodeBlocks : MonoBehaviour
 {

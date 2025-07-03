@@ -8,7 +8,7 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     public Image image;
     [HideInInspector] public Transform parentAfterDrag;
     [HideInInspector] public GameObject clonedBlock;
-    public CameraController cc;
+    private CameraController cc;
 
     private void Awake()
     {
