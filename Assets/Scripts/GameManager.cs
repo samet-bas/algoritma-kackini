@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public RectTransform zoom,dialog;
     public Transform floor, decor, robot;
     public GameObject functionPanel;
+    public RectTransform functionButton;
     public RectTransform BlokPanel;
     public RectTransform KodPanel;
     public GameObject program;
@@ -45,11 +46,13 @@ public class GameManager : MonoBehaviour
     public void HidePanelsOnRun()
     {
         BlokPanel.DOAnchorPosX(-180f, 1f);
+        functionButton.DOAnchorPosX(-425f, 1f);
         KodPanel.DOAnchorPosX(180f, 1f);
     }
     public void ShowPanelsOnStop()
     {
         BlokPanel.DOAnchorPosX(+250f, 1f);
+        functionButton.DOAnchorPosX(+0f, 1f);
         KodPanel.DOAnchorPosX(-250f, 1f);
     }
 
