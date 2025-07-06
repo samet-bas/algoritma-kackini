@@ -85,7 +85,7 @@ public class RobotController : MonoBehaviour
 
                 Vector3 nextPos = transform.position + transform.forward * moveDistance;
                 if (!isFlying) animator.SetBool("walking", true);
-                else transform.DORotate(new Vector3(20f, 0f, 0f), moveSpeed);
+                
                 yield return transform.DOMove(nextPos, moveSpeed).WaitForCompletion();
                 animator.SetBool("walking", false);
                 transform.DORotate(new Vector3(0f, 0f, 0f), moveSpeed);
